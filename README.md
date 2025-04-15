@@ -41,3 +41,89 @@
 ---
 
 A adoção de cloud transforma a forma como empresas operam e inovam, tornando-se um pilar essencial da transformação digital.
+
+# Criação de Máquina Virtual Simples na Azure para Hospedagem de API e Página Web
+
+## Objetivo
+Implementar uma máquina virtual (VM) simples na Microsoft Azure para hospedar:
+- Uma API com poucas requisições
+- Uma página web estática ou de baixo tráfego
+
+---
+
+## Passo a Passo da Criação via Interface (Portal Azure)
+
+### 1. Acesso ao Portal Azure
+- Acesso feito via: [https://portal.azure.com](https://portal.azure.com)
+
+---
+
+### 2. Navegação até o Serviço de Máquinas Virtuais
+- Menu lateral esquerdo → **Máquinas Virtuais** → **+ Criar**
+- Escolha: **Máquina virtual do Azure**
+
+---
+
+### 3. Configurações Básicas
+
+#### Assinatura e Grupo de Recursos
+- **Assinatura:** padrão da conta
+- **Grupo de Recursos:** `web-hosting-rg`
+  - *Motivo:* Organização e gerenciamento fácil de recursos relacionados ao projeto.
+
+#### Nome da Máquina Virtual
+- **Nome:** `vm-web-api`
+  - *Motivo:* Nome descritivo e fácil de identificar.
+
+#### Região
+- **Região:** Brasil Sul (ou região mais próxima ao público alvo)
+  - *Motivo:* Menor latência para usuários locais.
+
+#### Imagem do SO
+- **Imagem:** Ubuntu Server 22.04 LTS
+  - *Motivo:* Estabilidade, suporte de longo prazo e compatibilidade com servidores web e APIs Python/Node.js.
+
+#### Tamanho
+- **Tamanho:** `Standard B1s (1 vCPU, 1 GB RAM)`
+  - *Motivo:* Ideal para workloads leves e custo reduzido (paga por uso).
+
+#### Método de Autenticação
+- **Tipo:** Chave SSH pública
+  - *Motivo:* Mais seguro que autenticação por senha.
+
+---
+
+### 4. Configurações de Disco
+
+- **Tipo de Disco:** Disco SSD padrão
+  - *Motivo:* Balanceia custo e performance para aplicações leves.
+
+---
+
+### 5. Rede
+
+- **VNet/Sub-rede:** Criada automaticamente ou já existente
+- **IP público:** Sim (estático opcional)
+- **Portas abertas:**
+  - Porta 22 (SSH)
+  - Porta 80 (HTTP)
+  - Porta 443 (HTTPS)
+  - *Motivo:* Acesso remoto para configuração e acesso web externo.
+
+---
+
+### 6. Monitoramento
+
+- **Monitoramento habilitado:** Sim
+  - *Motivo:* Para acompanhar o desempenho e diagnosticar problemas.
+
+---
+
+### 7. Revisão e Criação
+
+- Revisão das configurações e clique em **Criar**
+- Após provisionamento, acesso à VM via terminal SSH:
+
+```bash
+ssh azureuser@<IP-da-VM>
+
